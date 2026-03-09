@@ -219,7 +219,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## 🙏 Credits & Acknowledgments
 
-This project was originally scaffolded by Team CodeProwlers and has since been **significantly redesigned, refactored, and extended by [Your Name]**, including major improvements to the UI, AI integration, goal tracking system, and overall architecture.
+This project was originally scaffolded by Team CodeProwlers and has since been **significantly redesigned, refactored, and extended by Anmol Santwani, including major improvements to the UI, AI integration, goal tracking system, and overall architecture.
 
 Special thanks to:
 - The **Next.js** team for the framework
@@ -236,6 +236,6 @@ Special thanks to:
 ![Contributors](https://img.shields.io/github/contributors/JyotirmoyDas05/finwise.ly)
 ![Issues](https://img.shields.io/github/issues/JyotirmoyDas05/finwise.ly)
 
-<p>Significantly enhanced and maintained by <strong>[Your Name]</strong></p>
+<p>Significantly enhanced and maintained by <strong>Anmol Santwani</strong></p>
 
 </div>

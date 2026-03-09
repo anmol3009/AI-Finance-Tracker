@@ -1,0 +1,176 @@
+<<<<<<< HEAD
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Rules for users collection
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      
+      // Rules for nested goals collection
+      match /goals/{goalId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Rules for learning progress collection
+      match /learning_progress/{progressId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Rules for financial data collection
+      match /financialData/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Rules for budgets collection
+    match /budgets/{budgetId} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // Rules for transactions collection
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // User Profiles collection rules
+    match /userProfiles/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Financial data rules
+    match /users/{userId}/financialData/{document=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Educational content rules (public read access)
+    match /educationalContent/{document=**} {
+      allow read: if true;
+      allow write: if false; // Only admin can write
+    }
+
+    // Chat messages rules
+    match /chat/{userId}/messages/{messageId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // User settings rules
+    match /users/{userId}/settings/{settingId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Budget comparison rules
+    match /users/{userId}/budgetComparison/{document=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+=======
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Rules for users collection
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      
+      // Rules for nested goals collection
+      match /goals/{goalId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Rules for learning progress collection
+      match /learning_progress/{progressId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Rules for financial data collection
+      match /financialData/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Rules for budgets collection
+    match /budgets/{budgetId} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // Rules for transactions collection
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update, delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // User Profiles collection rules
+    match /userProfiles/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Financial data rules
+    match /users/{userId}/financialData/{document=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Educational content rules (public read access)
+    match /educationalContent/{document=**} {
+      allow read: if true;
+      allow write: if false; // Only admin can write
+    }
+
+    // Chat messages rules
+    match /chat/{userId}/messages/{messageId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // User settings rules
+    match /users/{userId}/settings/{settingId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Budget comparison rules
+    match /users/{userId}/budgetComparison/{document=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+>>>>>>> 19e6f4e951d173eedd2db4faf1ab1534f4b6388f
+} 
